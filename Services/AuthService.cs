@@ -1,6 +1,7 @@
 ﻿using BookingSystem.Data;
 using BookingSystem.DTOs;
 using BookingSystem.Models;
+using BookingSystem.Repositories.AdminRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -14,33 +15,32 @@ namespace BookingSystem.Services
     {
         Task<LoginResponse?> Login(LoginRequest request);
         Task<bool> Register(RegisterRequest request);
-        string GenerateJwtToken(Administrator admin);
+        Task<bool> UserExists(string username);
 
     }
     public class AuthService : IAuthService
     {
-        private readonly RestaurantDbContext _context;
+        private readonly IAdminRepository _adminRepository;
         private readonly IPasswordService _passwordService;
-        private readonly IConfiguration _configuration;
-        public AuthService(RestaurantDbContext context, IPasswordService passwordService, IConfiguration configuration)
+        private readonly IJwtTokenService _jwtTokenService;
+        public AuthService(IAdminRepository adminRepository, IPasswordService passwordService, IJwtTokenService jwtTokenService)
         {
-            _context = context;
+            _adminRepository = adminRepository;
             _passwordService = passwordService;
-            _configuration = configuration;
+            _jwtTokenService = jwtTokenService;
+
         }
 
         public async Task<LoginResponse?> Login(LoginRequest request)
         {
-            var admin = await _context.Administrators.FirstOrDefaultAsync(a => a.Username
-             == request.Username);
+            var admin = await _adminRepository.GetByUsername(request.Username);
             if (admin == null)
-            {
                 return null;
-            }
+
             if (!_passwordService.VerifyPassword(request.Password, admin.Password))
                 return null;
 
-            var token = GenerateJwtToken(admin);
+            var token = _jwtTokenService.GenerateToken(admin);
             var expiresAt = DateTime.UtcNow.AddHours(24);
 
             return new LoginResponse
@@ -54,7 +54,7 @@ namespace BookingSystem.Services
 
         public async Task<bool> Register(RegisterRequest request)
         {
-            if (await _context.Administrators.AnyAsync(a => a.Username == request.Username))
+            if (await _adminRepository.UsernameExist(request.Username))
             {
                 return false;
             }
@@ -67,44 +67,14 @@ namespace BookingSystem.Services
 
             };
 
-            _context.Administrators.Add(newAdmin);
-            await _context.SaveChangesAsync();
-
+            await _adminRepository.Create(newAdmin);
             return true;
         }
-
-        private string GenerateJwtToken(Administrator admin)
+        public async Task<bool> UserExists(string username)
         {
-            var key = Encoding.ASCII.GetBytes(_configuration["JwtSettings:SecretKey"] ?? throw new InvalidOperationException("JWT Service not configured"));
-            var issuer = _configuration["JwtSettings:Issuer"];
-            var audience = _configuration["JwtSettings:Audience"];
-
-            var claims = new[]
-            {
-                new Claim(ClaimTypes.NameIdentifier, admin.AdminId.ToString()),
-                new Claim(ClaimTypes.Name, admin.Username),
-                new Claim("AdminId", admin.AdminId.ToString()),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Iat,DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64)
-            };
-
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddHours(24),
-                Issuer = issuer,
-                Audience = audience,
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
+            return await _adminRepository.UsernameExist(username);
         }
 
-        string IAuthService.GenerateJwtToken(Administrator admin)
-        {
-            return GenerateJwtToken(admin);
-        }
+
     }
 }
