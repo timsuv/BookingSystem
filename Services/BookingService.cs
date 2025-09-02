@@ -14,7 +14,7 @@ namespace BookingSystem.Services
         Task<BookingResponse?> CreateBooking(CreateBookingRequest request);
         Task<BookingResponse?> UpdateBooking(int id, UpdateBookingRequest request);
         Task<bool> DeleteBooking(int id);
-        Task<IEnumerable<AvailableTableResponse>> GetAvailableTableResponses(AvailableTableRequest request);
+        Task<IEnumerable<AvailableTableResponse>> GetAvailableTables(AvailableTableRequest request);
         Task<bool> IsTableAvailable(int tableId, DateTime date, TimeSpan time, int? excludeBookingId = null);
     }
 
@@ -107,7 +107,7 @@ namespace BookingSystem.Services
             return await _bookingRepository.Delete(id);
         }
 
-        public async Task<IEnumerable<AvailableTableResponse>> GetAvailableTableResponses(AvailableTableRequest request)
+        public async Task<IEnumerable<AvailableTableResponse>> GetAvailableTables(AvailableTableRequest request)
         {
             var suitableTables = await _tableRepository.GetTablesByCapacity(request.NumberOfGuests);
             var availableTables = new List<AvailableTableResponse>();

@@ -19,8 +19,10 @@ namespace BookingSystem
             app.EnsureDatabaseCreated()
                .UseSwaggerDocumentation()
                .UseCorsPolicy()
-               .UseSecurityMiddleware()
-               .MapAllEndpoints();
+               .UseSecurityMiddleware();
+
+            app.MapControllers();
+
 
             app.Run();
         }

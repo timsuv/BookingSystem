@@ -10,11 +10,13 @@ namespace BookingSystem.Extensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddControllers();
             services.AddDatabaseServices(configuration)
                    .AddJwtAuthentication(configuration)
                    .AddAuthServices()
                    .AddBusinessServices()
                    .AddSwaggerDocumentation();
+                  
 
             return services;
         }

@@ -11,7 +11,7 @@ namespace BookingSystem.Services
         Task<MenuItemResponse?> CreateMenuItem(CreateMenuItemRequest request);
         Task<MenuItemResponse?> UpdateMenuItem(int id, UpdateMenuItemRequest request);
         Task<IEnumerable<MenuItemResponse>> GetPopularMenuItem();
-
+        Task<bool> DeleteMenuItem(int id);
     }
 
 
@@ -68,6 +68,10 @@ namespace BookingSystem.Services
             return popularItems.Select(MapToResponse);
 
         }
+        public async Task<bool> DeleteMenuItem(int id)
+        {
+            return await _menuRepository.Delete(id);
+        }
         private static MenuItemResponse MapToResponse(MenuItem menuItem)
         {
             return new MenuItemResponse
@@ -81,5 +85,6 @@ namespace BookingSystem.Services
 
             };
         }
+
     }
 }
