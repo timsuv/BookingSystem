@@ -8,7 +8,6 @@
         public string? Description { get; set; }
         public bool IsPopular { get; set; }
         public string? BildUrl { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
+       
     }
 }

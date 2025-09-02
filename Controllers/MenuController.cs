@@ -29,6 +29,8 @@ namespace BookingSystem.Controllers
         public async Task<IActionResult> GetPopularItems()
         {
             var popularItems = await _menuService.GetPopularMenuItem();
+            if (popularItems == null)
+                return NotFound("No popular items found, add a popular item");
             return Ok(popularItems);
         }
 
@@ -36,7 +38,7 @@ namespace BookingSystem.Controllers
         public async Task<IActionResult> GetMenuItemById(int id)
         {
             var menuItem = await _menuService.GetMenuById(id);
-            if (menuItem == null) return NotFound();
+            if (menuItem == null) return NotFound($"Could not find an item with such {id}");
             return Ok(menuItem);
         }
 

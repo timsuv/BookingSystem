@@ -69,7 +69,7 @@ namespace BookingSystem.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("CustomerId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<TimeSpan>("Duration")
@@ -78,7 +78,7 @@ namespace BookingSystem.Migrations
                     b.Property<int>("NumberOfGuests")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TableId")
+                    b.Property<int>("TableId")
                         .HasColumnType("int");
 
                     b.HasKey("BookingId");
@@ -152,29 +152,218 @@ namespace BookingSystem.Migrations
                         new
                         {
                             MenuItemId = 1,
-                            BildUrl = "https://example.com/images/carbonara.jpg",
-                            Description = "Klassisk italiensk pasta med ägg, parmesan och pancetta",
+                            BildUrl = "https://example.com/images/antipasto.jpg",
+                            Description = "Selection of cured meats, aged cheeses, olives, roasted peppers and artisanal bread",
                             IsPopular = true,
-                            Name = "Pasta Carbonara",
+                            Name = "Antipasto della Casa",
                             Price = 185.00m
                         },
                         new
                         {
                             MenuItemId = 2,
-                            BildUrl = "https://example.com/images/grilled-salmon.jpg",
-                            Description = "Färsk lax med citron och dillsås, serveras med potatis",
+                            BildUrl = "https://example.com/images/bruschetta.jpg",
+                            Description = "Toasted sourdough topped with fresh tomatoes, basil, garlic and extra virgin olive oil",
                             IsPopular = true,
-                            Name = "Grillad Lax",
-                            Price = 245.00m
+                            Name = "Bruschetta Classica",
+                            Price = 95.00m
                         },
                         new
                         {
                             MenuItemId = 3,
-                            BildUrl = "https://example.com/images/buddha-bowl.jpg",
-                            Description = "Näringsrik skål med quinoa, rostade grönsaker och tahini-dressing",
+                            BildUrl = "https://example.com/images/burrata.jpg",
+                            Description = "Creamy burrata cheese served with Parma ham, arugula and aged balsamic reduction",
                             IsPopular = false,
-                            Name = "Poké Bowl",
+                            Name = "Burrata con Prosciutto",
                             Price = 165.00m
+                        },
+                        new
+                        {
+                            MenuItemId = 4,
+                            BildUrl = "https://example.com/images/carpaccio.jpg",
+                            Description = "Thinly sliced raw beef with capers, arugula, Parmigiano-Reggiano and lemon",
+                            IsPopular = false,
+                            Name = "Carpaccio di Manzo",
+                            Price = 195.00m
+                        },
+                        new
+                        {
+                            MenuItemId = 5,
+                            BildUrl = "https://example.com/images/carbonara.jpg",
+                            Description = "Traditional Roman pasta with guanciale, eggs, Pecorino Romano and black pepper",
+                            IsPopular = true,
+                            Name = "Spaghetti Carbonara",
+                            Price = 175.00m
+                        },
+                        new
+                        {
+                            MenuItemId = 6,
+                            BildUrl = "https://example.com/images/arrabbiata.jpg",
+                            Description = "Spicy tomato sauce with garlic, red chili peppers and fresh basil",
+                            IsPopular = false,
+                            Name = "Penne all'Arrabbiata",
+                            Price = 155.00m
+                        },
+                        new
+                        {
+                            MenuItemId = 7,
+                            BildUrl = "https://example.com/images/alfredo.jpg",
+                            Description = "Fresh fettuccine in rich butter and Parmigiano-Reggiano cream sauce",
+                            IsPopular = true,
+                            Name = "Fettuccine Alfredo",
+                            Price = 165.00m
+                        },
+                        new
+                        {
+                            MenuItemId = 8,
+                            BildUrl = "https://example.com/images/lasagne.jpg",
+                            Description = "Traditional layered pasta with Bolognese ragu, béchamel and three cheeses",
+                            IsPopular = true,
+                            Name = "Lasagne della Nonna",
+                            Price = 195.00m
+                        },
+                        new
+                        {
+                            MenuItemId = 9,
+                            BildUrl = "https://example.com/images/vongole.jpg",
+                            Description = "Fresh linguine with clams, white wine, garlic, parsley and cherry tomatoes",
+                            IsPopular = false,
+                            Name = "Linguine alle Vongole",
+                            Price = 225.00m
+                        },
+                        new
+                        {
+                            MenuItemId = 10,
+                            BildUrl = "https://example.com/images/risotto.jpg",
+                            Description = "Creamy Arborio rice with wild porcini mushrooms, white wine and Parmigiano",
+                            IsPopular = false,
+                            Name = "Risotto ai Funghi Porcini",
+                            Price = 215.00m
+                        },
+                        new
+                        {
+                            MenuItemId = 11,
+                            BildUrl = "https://example.com/images/ossobuco.jpg",
+                            Description = "Braised veal shanks in white wine and vegetables, served with saffron risotto",
+                            IsPopular = true,
+                            Name = "Osso Buco alla Milanese",
+                            Price = 325.00m
+                        },
+                        new
+                        {
+                            MenuItemId = 12,
+                            BildUrl = "https://example.com/images/saltimbocca.jpg",
+                            Description = "Veal escalopes with prosciutto and sage in white wine sauce",
+                            IsPopular = false,
+                            Name = "Saltimbocca alla Romana",
+                            Price = 285.00m
+                        },
+                        new
+                        {
+                            MenuItemId = 13,
+                            BildUrl = "https://example.com/images/branzino.jpg",
+                            Description = "Mediterranean sea bass baked in sea salt crust with herbs and lemon",
+                            IsPopular = true,
+                            Name = "Branzino in Crosta di Sale",
+                            Price = 295.00m
+                        },
+                        new
+                        {
+                            MenuItemId = 14,
+                            BildUrl = "https://example.com/images/parmigiana.jpg",
+                            Description = "Breaded chicken breast with tomato sauce, mozzarella and Parmigiano-Reggiano",
+                            IsPopular = true,
+                            Name = "Pollo alla Parmigiana",
+                            Price = 245.00m
+                        },
+                        new
+                        {
+                            MenuItemId = 15,
+                            BildUrl = "https://example.com/images/fiorentina.jpg",
+                            Description = "Traditional Tuscan T-bone steak grilled with rosemary, garlic and olive oil (700g)",
+                            IsPopular = false,
+                            Name = "Bistecca alla Fiorentina",
+                            Price = 485.00m
+                        },
+                        new
+                        {
+                            MenuItemId = 16,
+                            BildUrl = "https://example.com/images/margherita.jpg",
+                            Description = "Classic Neapolitan pizza with San Marzano tomatoes, mozzarella di bufala and basil",
+                            IsPopular = true,
+                            Name = "Pizza Margherita",
+                            Price = 145.00m
+                        },
+                        new
+                        {
+                            MenuItemId = 17,
+                            BildUrl = "https://example.com/images/quattrostagioni.jpg",
+                            Description = "Four seasons pizza with artichokes, mushrooms, ham and olives",
+                            IsPopular = true,
+                            Name = "Pizza Quattro Stagioni",
+                            Price = 175.00m
+                        },
+                        new
+                        {
+                            MenuItemId = 18,
+                            BildUrl = "https://example.com/images/diavola.jpg",
+                            Description = "Spicy pizza with tomato, mozzarella, spicy salami and chili peppers",
+                            IsPopular = false,
+                            Name = "Pizza Diavola",
+                            Price = 165.00m
+                        },
+                        new
+                        {
+                            MenuItemId = 19,
+                            BildUrl = "https://example.com/images/prosciuttofunghi.jpg",
+                            Description = "Pizza with tomato, mozzarella, prosciutto cotto and fresh mushrooms",
+                            IsPopular = true,
+                            Name = "Pizza Prosciutto e Funghi",
+                            Price = 185.00m
+                        },
+                        new
+                        {
+                            MenuItemId = 20,
+                            BildUrl = "https://example.com/images/tiramisu.jpg",
+                            Description = "Traditional Italian dessert with mascarpone, coffee, cocoa and ladyfingers",
+                            IsPopular = true,
+                            Name = "Tiramisu della Casa",
+                            Price = 95.00m
+                        },
+                        new
+                        {
+                            MenuItemId = 21,
+                            BildUrl = "https://example.com/images/pannacotta.jpg",
+                            Description = "Silky vanilla panna cotta with mixed berry compote",
+                            IsPopular = true,
+                            Name = "Panna Cotta ai Frutti di Bosco",
+                            Price = 85.00m
+                        },
+                        new
+                        {
+                            MenuItemId = 22,
+                            BildUrl = "https://example.com/images/cannoli.jpg",
+                            Description = "Crispy pastry tubes filled with sweet ricotta, chocolate chips and pistachios",
+                            IsPopular = false,
+                            Name = "Cannoli Siciliani",
+                            Price = 105.00m
+                        },
+                        new
+                        {
+                            MenuItemId = 23,
+                            BildUrl = "https://example.com/images/gelato.jpg",
+                            Description = "Three scoops of artisanal gelato: vanilla, chocolate, and seasonal fruit",
+                            IsPopular = true,
+                            Name = "Gelato Artigianale",
+                            Price = 75.00m
+                        },
+                        new
+                        {
+                            MenuItemId = 24,
+                            BildUrl = "https://example.com/images/affogato.jpg",
+                            Description = "Vanilla gelato 'drowned' in hot espresso with amaretti biscuits",
+                            IsPopular = false,
+                            Name = "Affogato al Caffè",
+                            Price = 65.00m
                         });
                 });
 
@@ -233,11 +422,15 @@ namespace BookingSystem.Migrations
                 {
                     b.HasOne("BookingSystem.Models.Customer", "Customer")
                         .WithMany("Bookings")
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("BookingSystem.Models.Table", "Table")
                         .WithMany("Bookings")
-                        .HasForeignKey("TableId");
+                        .HasForeignKey("TableId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Customer");
 

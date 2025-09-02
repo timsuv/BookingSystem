@@ -27,12 +27,12 @@ namespace BookingSystem.Controllers
             }
             return Ok(tables);
         }
-        [HttpGet("{int:id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetTableById(int id)
         {
             var table = await _tableService.GetTableById(id);
             if (table == null)
-                return NotFound();
+                return NotFound(new { message = "No table found" });
             return Ok(table);
         }
 
@@ -48,7 +48,7 @@ namespace BookingSystem.Controllers
 
             return CreatedAtAction(nameof(GetTableById), new { id = table.TableId }, table);
         }
-        [HttpPut("{int:id}")]
+        [HttpPut("{id:int}")]
         [Authorize]
         public async Task<IActionResult> UpdateTable(int id, UpdateTableRequest request)
         {

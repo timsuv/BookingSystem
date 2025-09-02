@@ -22,7 +22,7 @@ namespace BookingSystem.Controllers
         {
             var customers = await _customerService.GetAllCustomers();
             if(customers == null) 
-                return NotFound();
+                return NotFound("No customer found");
             return Ok(customers);
         }
 
@@ -32,7 +32,7 @@ namespace BookingSystem.Controllers
             var customer = await _customerService.GetCustomerById(id);
 
             if(customer == null)
-                return NotFound();
+                return NotFound($"No customer with {id} found");
             return Ok(customer);
         }
 

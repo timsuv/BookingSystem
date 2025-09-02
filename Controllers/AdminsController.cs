@@ -21,9 +21,11 @@ namespace BookingSystem.Controllers
             _adminService = adminService;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllAdmins()
+        public async Task<IActionResult> GetAllAdmins() 
         {
             var admins = await _adminService.GetAllAdmins();
+            if (admins == null) 
+                return NotFound("No admins found, that is crucial because the program doesn't work without admins");
             return Ok(admins);
         }
         [HttpGet("{id:int}")]
@@ -32,7 +34,7 @@ namespace BookingSystem.Controllers
             var admin = await _adminService.GetAdminById(id);
 
             if (admin == null)
-                return NotFound();
+                return NotFound("There are no admin with such id");
 
             return Ok(admin);
         }
@@ -59,7 +61,7 @@ namespace BookingSystem.Controllers
             var success = await _adminService.DeleteAdmin(id);
             if (!success) return NotFound();
 
-            return NoContent();
+            return Ok("Admin deleted");
         }
 
 
