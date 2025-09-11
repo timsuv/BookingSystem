@@ -174,7 +174,7 @@ The API manages the following entities:
 
 ## Frontend Integration
 
-This API is designed to work with the [Restaurant MVC Frontend](https://github.com/timsuv/TimosTrattoria). Configure the frontend to connect to:
+This API is designed to work with the [Timo's Trattoria MVC Frontend](https://github.com/timsuv/TimosTrattoria). Configure the frontend to connect to:
 - API Base URL: `https://localhost:7189/api/`
 
 ## Development Notes
